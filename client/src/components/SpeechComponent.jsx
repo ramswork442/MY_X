@@ -48,6 +48,8 @@ const SpeechComponent = () => {
     activationSuccess,
     activationFail,
     preText,
+    beforeSecretTranscript,
+    afterSecretTranscript
   } = languageMap[language];
 
   const videoRef = useRef(null);
