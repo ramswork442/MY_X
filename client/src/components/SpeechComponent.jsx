@@ -4,6 +4,7 @@ import { Mic, Loader } from "lucide-react";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 import ChatWindow from "./ChatWindow";
 import LanguageSelector from "./LanguageSelector";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const SpeechComponent = () => {
   const [transcript, setTranscript] = useState("सही सीक्रेट कोड बोलिये");
@@ -70,7 +71,7 @@ const SpeechComponent = () => {
     setResponse("");
     try {
       const finalPrompt = `${prompt} — ${promptPrefix}`;
-      const { data } = await axios.post("http://localhost:5000/api/generate", {
+      const { data } = await axios.post(`${apiUrl}/api/generate`, {
         prompt: finalPrompt,
       });
       const answer = data.text || "No response";

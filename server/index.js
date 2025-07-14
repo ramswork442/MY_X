@@ -15,9 +15,9 @@ app.use(express.json());
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY }); // Initialize GoogleGenAI with the API key
+const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
-mongoose.connect('mongodb://localhost:27017/myx');
+// mongoose.connect('mongodb://localhost:27017/myx');
 
 
 app.post("/api/generate", async (req, res) => {
@@ -55,7 +55,7 @@ app.post("/api/generate", async (req, res) => {
     });
   }
 });
-app.use('/api/transcripts', transcriptRoutes);
+// app.use('/api/transcripts', transcriptRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
