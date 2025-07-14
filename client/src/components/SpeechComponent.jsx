@@ -12,7 +12,7 @@ const SpeechComponent = () => {
   const [isModelActive, setIsModelActive] = useState(false);
   const [voices, setVoices] = useState([]);
   const [messageArray, setMessageArray] = useState([]);
-  const [openChat, setOpenChat] = useState(true);
+  const [openChat, setOpenChat] = useState(false);
   const [language, setLanguage] = useState("Hindi");
   const languageMap = {
     English: {
@@ -21,7 +21,8 @@ const SpeechComponent = () => {
       promptPrefix:
         "Reply as an Indian girl in English Only with proper readable format, around 40-50 words",
       activationSuccess: "Model activated! Welcome love! Ask me anything?",
-      activationFail:"Please say code to activate. That's really bad, you don't know my name",
+      activationFail:
+        "Please say code to activate. That's really bad, you don't know my name",
       preText: "Hello my ex",
       beforeSecretTranscript: "Say correct secret code",
       afterSecretTranscript: "Now, ask me anything...",
@@ -29,7 +30,8 @@ const SpeechComponent = () => {
     Hindi: {
       speechLang: "hi-IN",
       voiceMatch: "हिन्दी",
-      promptPrefix: "एक भारतीय लड़की की तरह केवल हिंदी में जवाब दो, स्पष्ट और पढ़ने योग्य तरीके से, लगभग 40–50 शब्दों में।",
+      promptPrefix:
+        "एक भारतीय लड़की की तरह केवल हिंदी में जवाब दो, स्पष्ट और पढ़ने योग्य तरीके से, लगभग 40–50 शब्दों में।",
       activationSuccess: "मॉडल शुरू हो गया है! कुछ भी पूछो, जानू",
       activationFail: "कृपया कोड बोलो। तुम मेरा नाम भी नहीं जानते",
       preText: "हेलो माय एक्स",
@@ -53,7 +55,7 @@ const SpeechComponent = () => {
   const speakResponse = (text) => {
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = speechLang;
-    console.log(voices);
+    // console.log(voices);
     const voice = voices.find((v) => v.name.includes(voiceMatch)) || voices[0];
     utter.voice = voice;
     utter.rate = 1.0;
@@ -89,9 +91,9 @@ const SpeechComponent = () => {
   const onSpeechResult = (speech) => {
     setTranscript(speech);
     if (!isModelActive) {
-      console.log(speech.toLowerCase().trim());
-      console.log(presetText);
-      console.log(speech.toLowerCase().includes(presetText.toLowerCase()));
+      // console.log(speech.toLowerCase().trim());
+      // console.log(presetText);
+      // console.log(speech.toLowerCase().includes(presetText.toLowerCase()));
 
       if (speech.toLowerCase().includes(presetText.toLowerCase())) {
         setIsModelActive(true);
@@ -116,7 +118,7 @@ const SpeechComponent = () => {
   useEffect(() => {
     const loadVoices = () => setVoices(window.speechSynthesis.getVoices());
     loadVoices();
-    console.log(voices);
+    // console.log(voices);
     window.speechSynthesis.onvoiceschanged = loadVoices;
     return () => (window.speechSynthesis.onvoiceschanged = null);
   }, []);
@@ -139,12 +141,15 @@ const SpeechComponent = () => {
           {/* The actual video */}
           <video
             ref={videoRef}
-            src="/talker02.mp4"
+            // src="https://res.cloudinary.com/dov4rjjvu/video/upload/v1752490786/talker02_zqvcco.mp4"
             className="relative z-10 w-full h-full rounded-md border border-white/20 object-cover"
             muted
             loop
             playsInline
-          />
+          >
+            <source src="https://res.cloudinary.com/dov4rjjvu/video/upload/v1752490786/talker02_zqvcco.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
         </div>
 
         <div className="flex items-center gap-4">
